@@ -1,0 +1,21 @@
+import xlrd
+
+def SaveFilesHumidityTemp(filename, sheet_name, list1, list2):
+    book = xlwt.Workbook()
+    sheet = book.add_sheet(sheet_name)
+    rowx = 0
+    colx = 0
+    
+    col1_name = 'Umidade'
+    col2_name = 'Temperatura'
+
+    sheet.write(rowx, colx, col1_name)
+    sheet.write(rowx, colx+1, col2_name)
+
+    for m, e1 in enumerate(list1, 1):
+        sheet.write(m, 0, e1)
+
+    for m, e2 in enumerate(list2, 1):
+        sheet.write(m, 1, e2)
+
+    book.save(filename)

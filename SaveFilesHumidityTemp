@@ -1,0 +1,32 @@
+import xlwt
+
+def SaveFilesHumidityTemp(filename, sheet_name, Humidity, Temperature, Date, Time):
+    book = xlwt.Workbook()
+    sheet = book.add_sheet(sheet_name)
+    rowx = 0
+    colx = 0
+
+    col0_name = 'Data'
+    col1_name = 'Horario'
+    col2_name = 'Umidade'
+    col3_name = 'Temperatura'
+    
+    sheet.write(rowx, colx, col0_name)
+    sheet.write(rowx, colx+1, col1_name)
+    sheet.write(rowx, colx+2, col2_name)
+    sheet.write(rowx, colx+3, col3_name)
+    for m, e0 in enumerate(Date, 1):
+        sheet.write(m, 0, e0)
+
+    for m, e1 in enumerate(Time, 1):
+        sheet.write(m, 1, e1)
+        
+    for m, e2 in enumerate(Humidity, 1):
+        sheet.write(m, 2, e2)
+
+    for m, e3 in enumerate(Temperature, 1):
+        sheet.write(m, 3, e3)
+        
+
+
+    book.save(filename)
