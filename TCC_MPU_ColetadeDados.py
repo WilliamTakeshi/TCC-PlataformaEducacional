@@ -1,7 +1,6 @@
-"""<title>Menus, Toolboxes, a full Application</title>
-Most all widgets are used in this example.  A full custom widget
-is included.  A number of connections are used to make the application
-function.
+"""Trabalho de conclusão de curso de graduação apresentado ao Departamento de Engenharia Elétrica da Universidade Federal de São Carlos
+como requisito parcial para a obtenção do título de Bacharel em Engenharia Elétrica.
+Modulo MPU6050/Coleta de dados
 """
 import pygame
 import time
