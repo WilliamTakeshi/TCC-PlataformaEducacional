@@ -9,16 +9,12 @@ from pygame.locals import *
 # the following line is not needed if pgu is installed
 import sys; sys.path.insert(0, "..")
 
-#from Python_DHT_TesteComVariaveisCnsts import *         #Import the function with gives the temperature and humidity CAN BE DELETED IN THE FINAL VERSION
-from Adafruit_Python_DHT import *                       #Import the function with reads the temperature and humidity
 from pgu import gui                                     #Import all gui
-from SaveFilesAccelGyro import SaveFilesAccelGyro  #Import the function with saves the files in .xls
-from ChangeMonthtoPortuguese import *                   #Import the function with changes the month in a Portuguese readable format   
+from SaveFilesAccelGyro import SaveFilesAccelGyro       #Import the function with saves the files in .xls
 from MPU6050 import get_accel_gyro
-#from DHT11 import *
 
 # --- Global constants ---
-BLACK = (0, 0, 0)    #Colors
+BLACK = (0, 0, 0)                                       #Colors
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
@@ -26,17 +22,16 @@ RED = (255, 0, 0)
 SCREEN_WIDTH = 700  
 SCREEN_HEIGHT = 500
 flagStart = 0
-table_accel_gyro = gui.Table()    #Creating table that will show the humidity and temperature
-select = gui.Select(value="DHT11") #Creating the selection between the types of sensor, beeing DHT11 the default
+table_accel_gyro = gui.Table()                          #Creating table that will show the acceleration and angular velocity
 #Making the lists
-accel_xout_scaled = []
+accel_xout_scaled = []                                  #Creating the lists that will show the x, y and z accelerations
 accel_yout_scaled = []
 accel_zout_scaled = []
-gyro_xout = []
+gyro_xout = []                                          #Creating the lists that will show the x, y and z angular velocity
 gyro_yout = []
 gyro_zout = []
 # --- Classes ---
-class NewDialog(gui.Dialog): #Creating the dialog when you click File->New
+class NewDialog(gui.Dialog):                            #Creating the dialog when you click File->New
     def __init__(self,**params):
         title = gui.Label("Novo Arquivo...")
         
@@ -60,7 +55,7 @@ class NewDialog(gui.Dialog): #Creating the dialog when you click File->New
         gui.Dialog.__init__(self,title,t)
         
         gui.Dialog.__init__(self,title,t)
-class AboutDialog(gui.Dialog): #Creating the dialog when you click Help->About
+class AboutDialog(gui.Dialog):                          #Creating the dialog when you click Help->About
     def __init__(self,**params):
         title = gui.Label("Sobre o modulo MPU6050")
         
@@ -87,7 +82,7 @@ class AboutDialog(gui.Dialog): #Creating the dialog when you click Help->About
 ##
         
 
-class HelpDialog(gui.Dialog): #Creating the dialog when you click Help->Help
+class HelpDialog(gui.Dialog):                           #Creating the dialog when you click Help->Help
     def __init__(self,**params):
         title = gui.Label("Ajuda")
         
@@ -129,7 +124,7 @@ class QuitDialog(gui.Dialog): #Creating the dialog when you click File->Quit
         
         gui.Dialog.__init__(self,title,t)
 
-class OpenDialog(gui.Dialog):  #Creating the dialog when you click File->Open
+class OpenDialog(gui.Dialog):                       #Creating the dialog when you click File->Open
     def __init__(self,**params):
         title = gui.Label("Abrir")
         
@@ -152,7 +147,7 @@ class OpenDialog(gui.Dialog):  #Creating the dialog when you click File->Open
         
         gui.Dialog.__init__(self,title,t)
 
-class SaveDialog(gui.Dialog): #Creating the dialog when you click File->SaveAs
+class SaveDialog(gui.Dialog):                           #Creating the dialog when you click File->SaveAs
     def __init__(self,**params):
         title = gui.Label("Salvar como...")
         
@@ -175,13 +170,13 @@ class SaveDialog(gui.Dialog): #Creating the dialog when you click File->SaveAs
         
         gui.Dialog.__init__(self,title,t)
         
-class StartGameButton(gui.Button): #The button that starts reading the values in the sensor
+class StartGameButton(gui.Button):                          #The button that starts reading the values in the sensor
     def __init__(self,**params):
         params['value'] = 'Comecar leitura'
         gui.Button.__init__(self,**params)
         self.connect(gui.CLICK,WriteTableHomeScreen)
 
-class HomeScreen(gui.Desktop):  #Create the container of the HomeScreen and add all the buttons and tables
+class HomeScreen(gui.Desktop):                              #Create the container of the HomeScreen and add all the buttons and tables
     def __init__(self,**params):
         gui.Desktop.__init__(self,**params)
         
@@ -229,7 +224,7 @@ class HomeScreen(gui.Desktop):  #Create the container of the HomeScreen and add 
         
         self.widget = c
         
-    def action_new(self,value):
+    def action_new(self,value):                         #Setting the actions New, Save, Saveas and Open
         self.new_d.close()
         self.fname = self.new_d.value['fname'].value
         global table_accel_gyro
@@ -246,27 +241,30 @@ class HomeScreen(gui.Desktop):  #Create the container of the HomeScreen and add 
         gyro_xout = []
         gyro_yout = []
         gyro_zout = []
+        
     def action_save(self,value):
         SaveFilesAccelGyro(self.fname, select.value, accel_xout_scaled,accel_yout_scaled,accel_zout_scaled,gyro_xout,gyro_yout,gyro_zout)
+    
     def action_saveas(self,value):
         self.save_d.close()
         self.fname = self.save_d.value['fname'].value
         SaveFilesAccelGyro(self.fname, select.value, accel_xout_scaled,accel_yout_scaled,accel_zout_scaled,gyro_xout,gyro_yout,gyro_zout)
+    
     def action_open(self,value):
         self.open_d.close()
         self.fname = self.open_d.value['fname']
         self.painter.surface = pygame.image.load(self.fname)
         self.painter.repaint()
         
-def WriteTableHomeScreen(): #Function that Reads the sensor and prints in the table
+def WriteTableHomeScreen():                         #Function that Reads the sensor and prints in the table
     global flagStart
     global c
 
-    if flagStart:
-        flagStart = 0
-        
+    if flagStart:                                   #The flagStart tells whether the program is or is not collecting data
+        flagStart = 0      
     else:
         flagStart = 1
+        
     while flagStart:
         accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z = get_accel_gyro()
         #--Writing the accels and gyros in the list to later send to excel--
