@@ -1,0 +1,42 @@
+import xlwt
+
+def SaveFilesAccelGyro(filename, sheet_name, accel_xout_scaled, accel_yout_scaled,accel_zout_scaled,gyro_xout,gyro_yout,gyro_zout):
+    book = xlwt.Workbook()
+    sheet = book.add_sheet(sheet_name)
+    rowx = 0
+    colx = 0
+
+    col0_name = 'Accel_x'
+    col1_name = 'Accel_y'
+    col2_name = 'Accel_z'
+    col3_name = 'Gyro_x'
+    col4_name = 'Gyro_y'
+    col5_name = 'Gyro_z'
+    
+    sheet.write(rowx, colx, col0_name)
+    sheet.write(rowx, colx+1, col1_name)
+    sheet.write(rowx, colx+2, col2_name)
+    sheet.write(rowx, colx+3, col3_name)
+    sheet.write(rowx, colx+4, col4_name)
+    sheet.write(rowx, colx+5, col5_name)
+    
+    for m, e0 in enumerate(accel_xout_scaled, 1):
+        sheet.write(m, 0, e0)
+
+    for m, e1 in enumerate(accel_yout_scaled, 1):
+        sheet.write(m, 1, e1)
+        
+    for m, e2 in enumerate(accel_zout_scaled, 1):
+        sheet.write(m, 2, e2)
+
+    for m, e3 in enumerate(gyro_xout, 1):
+        sheet.write(m, 3, e3)
+
+    for m, e4 in enumerate(gyro_yout, 1):
+        sheet.write(m, 4, e4)
+
+    for m, e5 in enumerate(gyro_zout, 1):
+        sheet.write(m, 5, e5)
+
+
+    book.save(filename)
