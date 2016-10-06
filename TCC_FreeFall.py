@@ -1,6 +1,6 @@
-"""<title>Integration with a Game</title>
-For games, it is usually preferrable to not have your game within
-a GUI framework.  This GUI framework can be placed within your game.
+"""Trabalho de conclusão de curso de graduação apresentado ao Departamento de Engenharia Elétrica da Universidade Federal de São Carlos
+como requisito parcial para a obtenção do título de Bacharel em Engenharia Elétrica.
+Modulo MPU6050/Freefall
 """
 
 import time
