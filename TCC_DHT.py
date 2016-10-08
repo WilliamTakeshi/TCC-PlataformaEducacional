@@ -1,6 +1,6 @@
 """Trabalho de conclusão de curso de graduação apresentado ao Departamento de Engenharia Elétrica da Universidade Federal de São Carlos
 como requisito parcial para a obtenção do título de Bacharel em Engenharia Elétrica.
-Modulo DHT11/DHT22
+Modulo DHT11/DHT22.
 """
 import pygame
 import time
